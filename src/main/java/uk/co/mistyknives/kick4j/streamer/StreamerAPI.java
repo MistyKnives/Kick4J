@@ -1,15 +1,14 @@
-package uk.co.mistyknives.streamer;
+package uk.co.mistyknives.kick4j.streamer;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import uk.co.mistyknives.util.SocialLinks;
+import uk.co.mistyknives.kick4j.util.Endpoints;
+import uk.co.mistyknives.kick4j.util.SocialLinks;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import static uk.co.mistyknives.util.Endpoints.CHANNELS_ENDPOINT;
 
 /**
  * Copyright MistyKnives © 2022-2023
@@ -27,7 +26,7 @@ public class StreamerAPI {
     public Streamer getStreamer(String s) {
         try {
 
-            URL url = new URL(CHANNELS_ENDPOINT + s);
+            URL url = new URL(Endpoints.CHANNELS_ENDPOINT + s);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("User-Agent", "Mozilla/5.0");

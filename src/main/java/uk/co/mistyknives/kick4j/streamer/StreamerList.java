@@ -1,10 +1,9 @@
-package uk.co.mistyknives.chatroom;
+package uk.co.mistyknives.kick4j.streamer;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Setter;
-import uk.co.mistyknives.user.User;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @Data
 @Setter(AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class ChatroomList {
+public class StreamerList {
 
-    private List<Chatroom> chatrooms;
+    private List<Streamer> streamers;
 }

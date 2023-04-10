@@ -1,11 +1,11 @@
-package uk.co.mistyknives.streamer;
+package uk.co.mistyknives.kick4j.streamer;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Setter;
-import uk.co.mistyknives.util.SocialLinks;
+import uk.co.mistyknives.kick4j.util.SocialLinks;
 
 /**
  * Copyright MistyKnives © 2022-2023

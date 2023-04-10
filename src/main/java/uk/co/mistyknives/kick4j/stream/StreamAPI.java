@@ -1,16 +1,13 @@
-package uk.co.mistyknives.stream;
+package uk.co.mistyknives.kick4j.stream;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import uk.co.mistyknives.chatroom.Chatroom;
-import uk.co.mistyknives.chatroom.ChatroomList;
+import uk.co.mistyknives.kick4j.util.Endpoints;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import static uk.co.mistyknives.util.Endpoints.CHANNELS_ENDPOINT;
 
 /**
  * Copyright MistyKnives © 2022-2023
@@ -28,7 +25,7 @@ public class StreamAPI {
 
     public Stream getStream(String s) {
         try {
-            URL url = new URL(CHANNELS_ENDPOINT + s);
+            URL url = new URL(Endpoints.CHANNELS_ENDPOINT + s);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("User-Agent", "Mozilla/5.0");
@@ -40,6 +37,11 @@ public class StreamAPI {
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(con.getInputStream());
+
+            if(node.get("livestream").asText().equalsIgnoreCase("null")) {
+                System.out.println(s + " is not live!");
+                return null;
+            }
 
             JsonNode livestreamNode = node.get("livestream");
             JsonNode categoryNode = livestreamNode.get("categories").get(0);

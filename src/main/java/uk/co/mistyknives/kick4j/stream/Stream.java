@@ -1,7 +1,6 @@
-package uk.co.mistyknives.chatroom;
+package uk.co.mistyknives.kick4j.stream;
 
 import com.fasterxml.jackson.databind.JsonNode;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,9 +12,11 @@ import lombok.Setter;
 @Data
 @Setter(AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class Chatroom {
+public class Stream {
 
-    private String id, chatableType, channelId, createdAt, updatedAt, chat_mode_old, chat_mode, slowMode, chatableId;
+    private String id, slug, sessionTitle, isLive, channelId, createdAt, duration, language, isMature, viewerCount, thumbnail;
+
+    private StreamCategory category;
 
     private JsonNode rawResponse;
 }

@@ -1,16 +1,15 @@
-package uk.co.mistyknives.user;
+package uk.co.mistyknives.kick4j.user;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import uk.co.mistyknives.util.SocialLinks;
+import uk.co.mistyknives.kick4j.util.Endpoints;
+import uk.co.mistyknives.kick4j.util.SocialLinks;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import static uk.co.mistyknives.util.Endpoints.USERS_ENDPOINT;
 
 /**
  * Copyright MistyKnives © 2022-2023
@@ -28,7 +27,7 @@ public class UserAPI {
     public User getUser(String s) {
         try {
 
-            URL url = new URL(USERS_ENDPOINT + s);
+            URL url = new URL(Endpoints.USERS_ENDPOINT + s);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("User-Agent", "Mozilla/5.0");

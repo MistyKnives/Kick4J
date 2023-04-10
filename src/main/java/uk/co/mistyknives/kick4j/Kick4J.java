@@ -1,8 +1,8 @@
-package uk.co.mistyknives;
-import uk.co.mistyknives.chatroom.ChatroomAPI;
-import uk.co.mistyknives.stream.StreamAPI;
-import uk.co.mistyknives.streamer.StreamerAPI;
-import uk.co.mistyknives.user.UserAPI;
+package uk.co.mistyknives.kick4j;
+import uk.co.mistyknives.kick4j.chatroom.ChatroomAPI;
+import uk.co.mistyknives.kick4j.stream.StreamAPI;
+import uk.co.mistyknives.kick4j.user.UserAPI;
+import uk.co.mistyknives.kick4j.streamer.StreamerAPI;
 
 /**
  * Copyright MistyKnives © 2022-2023

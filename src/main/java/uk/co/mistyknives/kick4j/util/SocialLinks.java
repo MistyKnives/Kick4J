@@ -1,4 +1,4 @@
-package uk.co.mistyknives.util;
+package uk.co.mistyknives.kick4j.util;
 
 import lombok.*;
 

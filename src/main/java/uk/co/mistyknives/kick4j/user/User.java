@@ -1,8 +1,8 @@
-package uk.co.mistyknives.user;
+package uk.co.mistyknives.kick4j.user;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.*;
-import uk.co.mistyknives.util.SocialLinks;
+import uk.co.mistyknives.kick4j.util.SocialLinks;
 
 /**
  * Copyright MistyKnives © 2022-2023

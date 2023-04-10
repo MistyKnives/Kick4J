@@ -1,10 +1,9 @@
-package uk.co.mistyknives.stream;
+package uk.co.mistyknives.kick4j.stream;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Setter;
-import uk.co.mistyknives.chatroom.Chatroom;
 
 import java.util.List;
 
