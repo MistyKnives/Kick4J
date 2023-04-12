@@ -1,23 +1,87 @@
 package uk.co.mistyknives.kick4j.streamer;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Setter;
-import uk.co.mistyknives.kick4j.util.SocialLinks;
+
+import uk.co.mistyknives.kick4j.streamer.trees.categories.*;
+import uk.co.mistyknives.kick4j.streamer.trees.profile.*;
+import uk.co.mistyknives.kick4j.streamer.trees.subscriptions.*;
+
+import java.util.Set;
 
 /**
  * Copyright MistyKnives © 2022-2023
+ * <br>
+ * ---------------------------------------
+ * <br>
+ * All Projects are located on my GitHub
+ * <br>
+ * Please provide credit where due :)
+ * <br>
+ * ---------------------------------------
+ * <br>
+ * https://github.com/MistyKnives
  */
 @Data
 @Setter(AccessLevel.PRIVATE)
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Streamer {
 
-    private String id, userId, username, slug, followerCount, bio, profilePicture, bannerUrl, createdAt, isLive;
+    public Streamer() {
+        super();
+    }
 
-    private JsonNode rawResponse;
+    private Integer id;
 
-    private SocialLinks socialLinks;
+    @JsonProperty("user_id")
+    private Integer userId;
+
+    private String slug;
+
+    @JsonProperty("is_banned")
+    private Boolean isBanned;
+
+    @JsonProperty("playback_url")
+    private String playbackUrl;
+
+    @JsonProperty("name_updated_at")
+    private String nameUpdatedAt;
+
+    @JsonProperty("vod_enabled")
+    private Boolean vodEnabled;
+
+    @JsonProperty("subscription_enabled")
+    private Boolean subscriptionEnabled;
+
+    @JsonProperty("cf_rate_limiter")
+    private String cfRateLimiter;
+
+    @JsonProperty("followersCount")
+    private Integer followCount;
+
+    @JsonProperty("subscriber_badges")
+    private Set<SubscriberBadge> subscriberBadges;
+
+    @JsonProperty("banner_image")
+    private Set<BannerImage> bannerImage;
+
+    @JsonProperty("recent_categories")
+    private Set<RecentCategories> recentCategories;
+
+    private Boolean livestream;
+
+    private String role;
+
+    private Boolean muted;
+
+    @JsonProperty("offline_banner_image")
+    private Set<OfflineBannerImage> offlineBannerImage;
+
+    private String verified;
 }

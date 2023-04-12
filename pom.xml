@@ -6,7 +6,7 @@
 
     <groupId>uk.co.mistyknives</groupId>
     <artifactId>Kick4J</artifactId>
-    <version>1.0.0</version>
+    <version>v1.0.0-Recoded</version>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
