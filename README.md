@@ -8,7 +8,7 @@ Just add this library to your project and our dependencies [lombok](https://proj
 
 # User
 Directly access the User API from Kick.com's User Endpoint.
-This method will return the User's ID, Username, Bio, Profile Picture, and Social Media Links.
+This method will return the User's ID, Username, Bio, Profile Picture, and a few more variables. 
 
 ## Get One User
 ```java
@@ -17,7 +17,7 @@ User user = api.getUser("MistyKnives");
 ```
 
 ```java
-User user = Kick4J.getAPI().getUser("MistyKnives");
+User user = Kick4J.getInstance().getUser("MistyKnives");
 ```
 
 ## Getting Mulitple Users
@@ -27,14 +27,14 @@ UserList users = api.getUsers("MistyKnives", "YOUR NAME");
 ```
 
 ```java
-UserList users = Kick4J.getAPI().getUsers("MistyKnives", "YOUR NAME");
+UserList users = Kick4J.getInstance().getUsers("MistyKnives", "YOUR NAME");
 ```
 
 If you recieve an error when testing the User API then it's most likely an Invalid Username you have entered.
 
 # Streamer
 Directly access the Streamer API from Kick.com's Channel Endpoint.
-This method will return the Streamers's ID, User ID, Username, Slug (Lowercase Username), Follower Count, Bio, Profile Picture, Banner URL, Created At Timestamp, Is Live, and Social Media Links.
+This method will return the Streamer's ID, Playback URL, Follow Count, Subscriber Badges, Banner, and more.
 
 ## Getting One Streamer
 ```java
@@ -43,72 +43,46 @@ Streamer streamer = api.getStreamer("MistyKnives");
 ```
 
 ```java
-Streamer streamer = Kick4J.getAPI().getStreamer("MistyKnives");
+Streamer streamer = Kick4J.getInstance().getStreamer("MistyKnives");
 ```
 
 ## Getting Multiple Streamers
 ```java
 StreamerAPI api = new StreamerAPI();
-StreamerList streamers = api.getStreamers("MistyKnives", "YOUR NAME");
+StreamerList streamers = api.getInstance("MistyKnives", "YOUR NAME");
 ```
 
 ```java
-StreamerList streamers = Kick4J.getAPI().getStreamers("MistyKnives", "YOUR NAME");
+StreamerList streamers = Kick4J.getInstance().getStreamers("MistyKnives", "YOUR NAME");
 ```
 
 If you recieve an error when testing the Streamer API then it's most likely an Invalid Username you have entered.
 
-# Stream
-Directly access the Stream API from Kick.com's Channel Endpoint.
-This method will return the Stream's ID, Slug (Lowercase Session Title), Session Title, Is Live, Channel ID, Duration (Always returns 0 until Ended), Language, Is Mature, Viewer Count, Thumbnail, and Category.
+# Livestream
+Directly access the Livestream API from Kick.com's Channel Endpoint.
+This method will return the Livestream's ID, Slug (Lowercase Session Title), Session Title, Is Live, Channel ID, Duration (Always returns 0 until Ended), Language, Is Mature, Viewer Count, Thumbnail, Category, and many more variables.
 
-## Getting One Stream
+## Getting One Livestream
 ```java
-StreamAPI api = new StreamAPI();
-Stream stream = api.getStream("MistyKnives");
+LivestreamAPI api = new LivestreamAPI();
+Livestream livestream = api.getLivestream("MistyKnives");
 ```
 
 ```java
-Stream stream = Kick4J.getAPI().getStream("MistyKnives");
+Livestream livestream = Kick4J.getInstance().getLivestream("MistyKnives");
 ```
 
-## Getting Multiple Streams
+## Getting Multiple Livestreams
 ```java
-StreamAPI api = new StreamAPI();
-StreamList streams = api.getStreams("MistyKnives", "YOUR NAME");
-```
-
-```java
-StreamList streams = Kick4J.getAPI().getStreams("MistyKnives", "YOUR NAME");
-```
-
-If you recieve an error when testing the Streamer API then it's most likely the Streamer is no longer live or you have entered an Invalid Username.
-
-# Chatroom
-Directly access the Chatroom API from Kick.com's Channel Endpoint.
-This method will return the Chatroom's ID, Chatable Type, Created At Timestamp, Updated At Timestamp, Chat Mode Old, Chat Mode, Slow Mode, Chatable ID.
-
-## Getting One Chatroom
-```java
-ChatroomAPI api = new ChatroomAPI();
-Chatroom chatroom = api.getChatroom("MistyKnives");
+LivestreamAPI api = new LivestreamAPI();
+LivestreamList livestreams = api.getLivestreams("MistyKnives", "YOUR NAME");
 ```
 
 ```java
-ChatroomList chatroom = Kick4J.getAPI().getChatroom("MistyKnives");
+LivestreamList livestreams = Kick4J.getInstance().getLivestreams("MistyKnives", "YOUR NAME");
 ```
 
-## Getting Multiple Chatrooms
-```java
-ChatroomAPI api = new ChatroomAPI();
-ChatroomList chatrooms = api.getChatrooms("MistyKnives", "YOUR NAME");
-```
-
-```java
-ChatroomList chatrooms = Kick4J.getAPI().getChatrooms("MistyKnives", "YOUR NAME");
-```
-
-If you recieve an error while testing the Chatroom API then it's most likely the user does not exist.
+If you recieve an error when testing the Livestream API then it's most likely the Streamer is no longer live or you have entered an Invalid Username.
 
 # Errors
 If you recieve any errors while testing my project, please dont be afraid to put them in the [Issues Section](https://github.com/MistyKnives/Kick4J/issues) as this will help me detect issues easier!
