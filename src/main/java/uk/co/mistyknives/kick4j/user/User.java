@@ -19,7 +19,7 @@ public class User {
     private String username;
 
     @JsonProperty("agreed_to_terms")
-    private Boolean agreedToTerms;
+    private boolean agreedToTerms;
 
     @JsonProperty("email_verified_at")
     private String emailVerifiedAt;

@@ -51,7 +51,7 @@ public class Livestream {
     private String sessionTitle;
 
     @JsonProperty("is_live")
-    private Boolean isLive;
+    private boolean isLive;
 
     @JsonProperty("risk_level_id")
     private String riskLevelId;
@@ -66,7 +66,7 @@ public class Livestream {
     private String language;
 
     @JsonProperty("is_mature")
-    private Boolean isMature;
+    private boolean isMature;
 
     private Set<BannerImage> thumbnail;
 
@@ -75,8 +75,4 @@ public class Livestream {
     private Set<LivestreamCategory> categories;
 
     private List<String> tags;
-
-    public boolean isLive() {
-        return isLive;
-    }
 }

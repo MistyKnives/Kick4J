@@ -13,7 +13,6 @@ import uk.co.mistyknives.kick4j.user.UserList;
 import uk.co.mistyknives.kick4j.util.HttpConnection;
 import uk.co.mistyknives.kick4j.util.KickEndpoints;
 
-
 /**
  * Copyright MistyKnives © 2022-2023
  * <br>

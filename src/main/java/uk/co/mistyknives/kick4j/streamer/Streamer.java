@@ -45,7 +45,7 @@ public class Streamer {
     private String slug;
 
     @JsonProperty("is_banned")
-    private Boolean isBanned;
+    private boolean isBanned;
 
     @JsonProperty("playback_url")
     private String playbackUrl;
@@ -54,10 +54,10 @@ public class Streamer {
     private String nameUpdatedAt;
 
     @JsonProperty("vod_enabled")
-    private Boolean vodEnabled;
+    private boolean vodEnabled;
 
     @JsonProperty("subscription_enabled")
-    private Boolean subscriptionEnabled;
+    private boolean subscriptionEnabled;
 
     @JsonProperty("cf_rate_limiter")
     private String cfRateLimiter;
@@ -74,11 +74,11 @@ public class Streamer {
     @JsonProperty("recent_categories")
     private Set<RecentCategories> recentCategories;
 
-    private Boolean livestream;
+    private boolean livestream;
 
     private String role;
 
-    private Boolean muted;
+    private boolean muted;
 
     @JsonProperty("offline_banner_image")
     private Set<OfflineBannerImage> offlineBannerImage;
