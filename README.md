@@ -2,7 +2,7 @@
 This is a simple and small project aimed at accessing Kick.com's API easily through Java to create projects from it.
 
 # Getting Started
-Just add this library to your project and our dependencies [lombok](https://projectlombok.org/) and [Jackson API](https://github.com/FasterXML/jackson) and its as simple as that.
+Just add this library to your project and our dependencies [lombok](https://projectlombok.org/), [Jackson API](https://github.com/FasterXML/jackson) [Selenium](https://www.selenium.dev/), and [JSoup](https://jsoup.org/) and its as simple as that.
 
 ## Features
 
