@@ -28,7 +28,7 @@ public class StreamerAPI {
      * @see uk.co.mistyknives.kick4j.streamer.Streamer
      */
     public Streamer getStreamer(String s) {
-        return (Streamer) HttpConnection.getRawResponse(HttpConnection.getConnection(KickEndpoints.CHANNELS.url + "/" + s), Streamer.class);
+        return (Streamer) HttpConnection.getRawResponse(KickEndpoints.CHANNELS.url + "/%s".formatted(s), Streamer.class);
     }
 
     /**

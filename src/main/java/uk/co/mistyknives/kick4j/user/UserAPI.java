@@ -28,7 +28,7 @@ public class UserAPI {
      * @see uk.co.mistyknives.kick4j.user.User
      */
     public User getUser(String s) {
-        return (User) HttpConnection.getRawResponse(HttpConnection.getConnection(KickEndpoints.USERS.url + "/" + s), User.class);
+        return (User) HttpConnection.getRawResponse(KickEndpoints.USERS.url + "/%s".formatted(s), User.class);
     }
 
     /**

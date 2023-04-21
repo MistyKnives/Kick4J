@@ -1,7 +1,5 @@
 package uk.co.mistyknives.kick4j.livestream;
 
-import uk.co.mistyknives.kick4j.streamer.Streamer;
-import uk.co.mistyknives.kick4j.streamer.StreamerList;
 import uk.co.mistyknives.kick4j.util.HttpConnection;
 import uk.co.mistyknives.kick4j.util.KickEndpoints;
 
@@ -30,7 +28,7 @@ public class LivestreamAPI {
      * @see uk.co.mistyknives.kick4j.livestream.Livestream
      */
     public Livestream getLivestream(String s) {
-        return (Livestream) HttpConnection.getRawResponseFromNode(HttpConnection.getConnection(KickEndpoints.CHANNELS.url + "/" + s), Livestream.class, "livestream");
+        return (Livestream) HttpConnection.getRawResponseFromNode(KickEndpoints.CHANNELS.url + "/%s".formatted(s), "livestream", Livestream.class);
     }
 
     /**

@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum KickEndpoints {
 
-    BASE("https://kick.com/api/v1"), USERS("%s/users".formatted(BASE.url)), CHANNELS("%s/channels".formatted(BASE.url));
+    BASE("https://kick.com/api/v1"), USERS("%s/users".formatted(BASE.url)), CHANNELS("%s/channels".formatted(BASE.url)), SEND_CHAT_MESSAGE("%s/chat-messages".formatted(BASE.url)), SEND_CHAT_REACTION("%s/message-react".formatted(BASE.url));
 
     public final String url;
 

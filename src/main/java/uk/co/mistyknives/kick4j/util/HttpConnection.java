@@ -1,14 +1,16 @@
 package uk.co.mistyknives.kick4j.util;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.DataInput;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 /**
  * Copyright MistyKnives © 2022-2023
@@ -25,44 +27,39 @@ import java.net.URL;
  */
 public class HttpConnection {
 
-    public static HttpURLConnection getConnection(String s) {
+    public static Object getRawResponse(String s, Class clazz) {
         try {
-            URL url = new URL(s);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestProperty("User-Agent", "Mozilla/5.0");
+            ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 
-            con.connect();
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--enable-javascript", "--enable-cookies");
+            options.setHeadless(true);
 
-            if(con.getResponseCode() != 200) {
-                System.out.println("[Error] Could not connect to the HttpClient, please try again in a few minutes :)");
-                System.out.println("[Error] Most likely being rate limited, screw you Cloudflare >:(");
-                return null;
-            }
+            WebDriver driver = new FirefoxDriver(options);
+            driver.get(s);
 
-            return con;
+            Document document = Jsoup.parse(driver.getPageSource());
+            System.out.println(document.text());
+
+            return mapper.readValue(document.text(), clazz);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static Object getRawResponse(HttpURLConnection connection, Class clazz) {
+    public static Object getRawResponseFromNode(String s, String node, Class clazz) {
         try {
-            ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--enable-javascript", "--enable-cookies");
+            options.setHeadless(true);
 
-            return mapper.readValue(connection.getInputStream(), clazz);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+            WebDriver driver = new FirefoxDriver(options);
+            driver.get(s);
 
-    public static Object getRawResponseFromNode(HttpURLConnection connection, Class clazz, String node) {
-        try {
+            Document document = Jsoup.parse(driver.getPageSource());
             ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-            JsonNode jsonNode = mapper.readTree(connection.getInputStream()).get(node);
+            JsonNode jsonNode = mapper.readTree(document.text()).get(node);
             JsonParser parser = mapper.treeAsTokens(jsonNode);
 
             return mapper.readValue(parser, clazz);

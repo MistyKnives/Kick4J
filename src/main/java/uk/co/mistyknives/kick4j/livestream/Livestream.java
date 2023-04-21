@@ -3,12 +3,14 @@ package uk.co.mistyknives.kick4j.livestream;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Setter;
+
+import uk.co.mistyknives.kick4j.livestream.trees.Chatroom;
 import uk.co.mistyknives.kick4j.livestream.trees.LivestreamCategory;
-import uk.co.mistyknives.kick4j.streamer.trees.categories.RecentCategories;
 import uk.co.mistyknives.kick4j.streamer.trees.profile.BannerImage;
 
 import java.util.List;
@@ -75,4 +77,6 @@ public class Livestream {
     private Set<LivestreamCategory> categories;
 
     private List<String> tags;
+
+    private Set<Chatroom> chatroom;
 }

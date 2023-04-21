@@ -1,6 +1,7 @@
 package uk.co.mistyknives.kick4j;
 
 import lombok.Getter;
+
 import uk.co.mistyknives.kick4j.livestream.Livestream;
 import uk.co.mistyknives.kick4j.livestream.LivestreamAPI;
 import uk.co.mistyknives.kick4j.livestream.LivestreamList;
@@ -10,8 +11,6 @@ import uk.co.mistyknives.kick4j.streamer.StreamerList;
 import uk.co.mistyknives.kick4j.user.UserAPI;
 import uk.co.mistyknives.kick4j.user.User;
 import uk.co.mistyknives.kick4j.user.UserList;
-import uk.co.mistyknives.kick4j.util.HttpConnection;
-import uk.co.mistyknives.kick4j.util.KickEndpoints;
 
 /**
  * Copyright MistyKnives © 2022-2023
