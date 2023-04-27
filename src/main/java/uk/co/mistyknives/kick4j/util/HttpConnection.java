@@ -39,7 +39,6 @@ public class HttpConnection {
             driver.get(s);
 
             Document document = Jsoup.parse(driver.getPageSource());
-            System.out.println(document.text());
 
             return mapper.readValue(document.text(), clazz);
         } catch (Exception e) {
