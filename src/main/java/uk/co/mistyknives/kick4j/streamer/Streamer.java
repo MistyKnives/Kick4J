@@ -83,6 +83,4 @@ public class Streamer {
 
     @JsonProperty("offline_banner_image")
     private Set<OfflineBannerImage> offlineBannerImage;
-
-    private String verified;
 }
