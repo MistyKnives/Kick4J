@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Setter;
 
+import uk.co.mistyknives.kick4j.livestream.Livestream;
 import uk.co.mistyknives.kick4j.streamer.trees.categories.*;
 import uk.co.mistyknives.kick4j.streamer.trees.profile.*;
 import uk.co.mistyknives.kick4j.streamer.trees.subscriptions.*;
@@ -65,6 +66,8 @@ public class Streamer {
     @JsonProperty("followersCount")
     private Integer followCount;
 
+    private Livestream livestream;
+
     @JsonProperty("subscriber_badges")
     private Set<SubscriberBadge> subscriberBadges;
 
@@ -73,8 +76,6 @@ public class Streamer {
 
     @JsonProperty("recent_categories")
     private Set<RecentCategories> recentCategories;
-
-    private boolean livestream;
 
     private String role;
 
