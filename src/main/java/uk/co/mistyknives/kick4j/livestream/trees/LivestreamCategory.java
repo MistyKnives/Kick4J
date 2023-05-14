@@ -49,4 +49,6 @@ public class LivestreamCategory {
     private Set<BannerImage> banner;
 
     private Set<Category> category;
+
+    private Integer viewers;
 }
