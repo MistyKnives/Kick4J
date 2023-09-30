@@ -1,4 +1,7 @@
 # Kick4J
+
+# WIP NEW UPDATE. WILL HAVE A MUCH MORE FUNCTIONAL WAY OF ACCESSING DATA WITH EVENTS AND MUCH MORE.
+
 This is a simple and small project aimed at accessing Kick.com's API easily through Java to create projects from it.
 
 # Getting Started
@@ -49,7 +52,7 @@ Streamer streamer = Kick4J.getInstance().getStreamer("MistyKnives");
 ## Getting Multiple Streamers
 ```java
 StreamerAPI api = new StreamerAPI();
-StreamerList streamers = api.getInstance("MistyKnives", "YOUR NAME");
+StreamerList streamers = api.getStreamers("MistyKnives", "YOUR NAME");
 ```
 
 ```java
