@@ -1,6 +1,7 @@
 # Kick4J
 
 # WIP NEW UPDATE. WILL HAVE A MUCH MORE FUNCTIONAL WAY OF ACCESSING DATA WITH EVENTS AND MUCH MORE.
+https://docs.kick4j.com (New Update) - Will be released soon.
 # Home
 
 This is a simple and small project aimed at accessing Kick.com's API easily through Java to create projects from it.
