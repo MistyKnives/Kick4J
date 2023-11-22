@@ -1,18 +1,24 @@
 package uk.co.mistyknives.kick4j;
 
-import lombok.Getter;
+import lombok.*;
 
-import uk.co.mistyknives.kick4j.livestream.Livestream;
-import uk.co.mistyknives.kick4j.livestream.LivestreamAPI;
-import uk.co.mistyknives.kick4j.livestream.LivestreamList;
-import uk.co.mistyknives.kick4j.streamer.Streamer;
-import uk.co.mistyknives.kick4j.streamer.StreamerAPI;
-import uk.co.mistyknives.kick4j.streamer.StreamerList;
-import uk.co.mistyknives.kick4j.user.UserAPI;
-import uk.co.mistyknives.kick4j.user.User;
-import uk.co.mistyknives.kick4j.user.UserList;
+import uk.co.mistyknives.kick4j.api.channels.*;
+import uk.co.mistyknives.kick4j.api.chatrooms.*;
+import uk.co.mistyknives.kick4j.api.users.*;
+import uk.co.mistyknives.kick4j.api.users.payload.*;
+import uk.co.mistyknives.kick4j.auth.*;
+import uk.co.mistyknives.kick4j.events.*;
+import uk.co.mistyknives.kick4j.events.impl.channel.ChannelSubscriptionEvent;
+import uk.co.mistyknives.kick4j.events.impl.client.ReadyEvent;
+import uk.co.mistyknives.kick4j.socket.KickSocket;
+import uk.co.mistyknives.kick4j.util.*;
+
+import java.util.ArrayList;
+
 
 /**
+ * Project: Kick4J
+ * <br>
  * Copyright MistyKnives © 2022-2023
  * <br>
  * ---------------------------------------
@@ -25,68 +31,85 @@ import uk.co.mistyknives.kick4j.user.UserList;
  * <br>
  * https://github.com/MistyKnives
  */
-public class Kick4J {
+public class Kick4J implements EventSub {
+
+    public UserManager users;
+    public ChannelManager channels;
+    public ChatroomManager chatrooms;
+
+    public Me user;
+
+    public KickSocket socket;
 
     @Getter
-    private static final Kick4J instance = new Kick4J();
+    private final Token token;
+
+    @Getter
+    private final boolean debug;
+
+    private final ArrayList<Integer> watchingIds;
+
+    private Thread clientThread;
 
     /**
-     * Get information about a User e.g. ID, Socials, etc.
-     * @param name The User's Username
-     * @return User
-     * @see uk.co.mistyknives.kick4j.user.UserAPI
+     * Create a new Instance of Kick4J.
+     * <p>
+     * <strong>WARNING: Do not attempt to spam the Kick API if you are not logged into a Client, it will spam you with errors from too many requests.</strong>
+     * @param token Client's Token (null if Read-Only).
+     * @param debug If logger is debug.
+     * @param watchingIds The channels the Client will watch events from.
      */
-    public User getUser(String name) {
-        return new UserAPI().getUser(name);
+    public Kick4J(Token token, boolean debug, ArrayList<Integer> watchingIds) {
+        this.token = token;
+        this.debug = debug;
+        this.watchingIds = watchingIds;
     }
 
     /**
-     * Get information about Multiple Users e.g. ID, Socials, etc.
-     * @param names Array of Usernames
-     * @return UserList
-     * @see uk.co.mistyknives.kick4j.user.UserAPI
+     * Login to Kick4J Client to start listening to events, etc.
+     * <p>
+     * Example Usage:
+     * <pre>{@code
+     * Kick4J client = ...
+     * // Login to the Kick4J client.
+     * client.login();
+     * }</pre>
      */
-    public UserList getUser(String... names) {
-        return new UserAPI().getUsers(names);
+    public void login() {
+        this.clientThread = new Thread();
+        this.clientThread.start();
+
+        this.users = new UserManager(this);
+        this.user = this.users.cache.getMe();
+
+        Logger.logDebug(this.isDebug(), "[Auth] Now Logged in as %s!".formatted(this.user.getUsername()));
+
+        this.channels = new ChannelManager(this);
+        if(this.watchingIds != null && this.watchingIds.size() > -1) this.watchingIds.forEach(id -> this.channels.join(id));
+
+        this.chatrooms = new ChatroomManager(this);
+
+        this.socket = new KickSocket(this);
+        this.socket.connect();
+
+        this.emit(EventType.READY, new ReadyEvent(this));
     }
 
     /**
-     * Get information about a Streamer e.g. ID, Follower Count, Subscription Badges, and more.
-     * @param name The User's Username
-     * @return Streamer
-     * @see uk.co.mistyknives.kick4j.streamer.StreamerAPI
+     * Logout from the Kick4J Client to stop listening to events, etc.
+     * <p>
+     * Example Usage:
+     * <pre>{@code
+     * Kick4J client = ...
+     * // Logout from the Kick4J client.
+     * client.close();
+     * }</pre>
+     * @throws InterruptedException Interrupting Threads.
      */
-    public Streamer getStreamer(String name) {
-        return new StreamerAPI().getStreamer(name);
-    }
+    public void close() throws InterruptedException {
+        this.clientThread.interrupt();
+        this.clientThread.join();
 
-    /**
-     * Get information about Multiple Streamers e.g. ID, Follower Count, Subscription Badges, and more.
-     * @param names Array of Usernames
-     * @return StreamerList
-     * @see uk.co.mistyknives.kick4j.streamer.StreamerAPI
-     */
-    public StreamerList getStreamers(String... names) {
-        return new StreamerAPI().getStreamers(names);
-    }
-
-    /**
-     * Get information about Multiple Livestreams e.g. ID, Title, Viewer Count, and more.
-     * @param name The User's Username
-     * @return Livestream
-     * @see uk.co.mistyknives.kick4j.livestream.LivestreamAPI
-     */
-    public Livestream getLivestream(String name) {
-        return new LivestreamAPI().getLivestream(name);
-    }
-
-    /**
-     * Get information about Multiple Livestreams e.g. ID, Title, Viewer Count, and more.
-     * @param names Array of Usernames
-     * @return LivestreamList
-     * @see uk.co.mistyknives.kick4j.livestream.LivestreamAPI
-     */
-    public LivestreamList getLivestreams(String... names) {
-        return new LivestreamAPI().getLivestreams(names);
+        this.socket.disconnect();
     }
 }
