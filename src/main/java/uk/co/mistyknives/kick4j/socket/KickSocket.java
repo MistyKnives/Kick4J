@@ -212,10 +212,20 @@ public class KickSocket {
             case "App\\Events\\ChatMessageEvent" -> {
                 JsonNode result = mapper.readTree(data);
                 Channel.V2 cachedChannel = client.channels.cache.subscribed.values().stream().filter(filter -> filter.getChatroom().getId() == result.get("chatroom_id").asInt()).findFirst().get();
-                User user = client.users.cache.find(result.get("sender").get("slug").asText());
+                User user;
+                ChatMessageEvent.Sender sender;
+                if(result.get("sender") == null || result.get("sender") != null && result.get("sender").get("slug") == null) {
+                    sender = null;
+                    user = null;
+                } else if(result.get("sender") != null && result.get("sender").get("slug") != null && client.users.cache.find(result.get("sender").get("slug").asText()) == null) {
+                    sender = null;
+                    user = null;
+                } else {
+                    user = client.users.cache.find(result.get("sender").get("slug").asText());
+                    sender = new ChatMessageEvent.Sender(user.getId(), result.get("sender").get("username").asText(), result.get("sender").get("slug").asText(), mapper.readValue(result.get("sender").get("identity").toString(), ChatMessageEvent.Sender.Identity.class));
+                }
 
                 EventChannel channel = new EventChannel(cachedChannel.getId(), cachedChannel.getUserId(), cachedChannel.getFollowerCount(), cachedChannel.getSlug(), cachedChannel.isVerified());
-                ChatMessageEvent.Sender sender = new ChatMessageEvent.Sender(user.getId(), result.get("sender").get("username").asText(), result.get("sender").get("slug").asText(), mapper.readValue(result.get("sender").get("identity").toString(), ChatMessageEvent.Sender.Identity.class));
                 ChatMessageEvent.Metadata metadata = result.get("metadata") == null ? null : mapper.readValue(result.get("metadata").toString(), ChatMessageEvent.Metadata.class);
 
                 client.emit(EventType.CHAT_MESSAGE, new ChatMessageEvent(client, channel, result.get("content").asText(), result.get("id").asInt(), result.get("chatroom_id").asInt(), sender, metadata));
