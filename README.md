@@ -1,4 +1,5 @@
 # Kick4J
+<strong>Project is no longer maintained.</strong><br>
 View our documentation on our project via the link below. There you will find all the information needed on creating a client, using events, and more!
 <br>
 <strong>https://docs.kick4j.com</strong>
